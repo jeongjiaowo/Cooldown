@@ -18,7 +18,7 @@ def Cooldown(cooltime : int, user : int):
 
     return True 
 
-def CooldownUpdate(user : int):
+def CooldownUpdate(user : int) -> True:
 
     Cooldowns[str(user)] = int(time.time()) 
 
