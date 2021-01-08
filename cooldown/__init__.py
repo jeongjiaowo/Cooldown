@@ -1,1 +1,1 @@
-from cooldown.Cooldown import Cooldown, CooldownSelect, CooldownUpdate, Cooldowns
+from cooldown.Cooldown import CooldownModule
