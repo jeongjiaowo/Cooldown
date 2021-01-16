@@ -1,6 +1,7 @@
 import discord, cooldown
 
 client = discord.Client()
+cool = cooldown.CooldownModule()
 
 @client.event 
 async def on_message(message):
