@@ -1,10 +1,10 @@
 # Cooldown
 
+기본적으로 모듈을 사용할려면 아래와 같습니다.
 ```py
-import cooldown
-...
+import cooldown, discord
 
-cooldown = cooldown.CooldownModule()
+cooldown = cooldown.CooldownClient()
 
 @client.event 
 async def on_message(message):
@@ -19,4 +19,36 @@ async def on_message(message):
         else:
             users = cooldown.CooldownSelect(5, 1) # 쿨타임 5초가 지나지 않은 플레이어 1명을 리스트 형식으로 불러옵니다.
             await message.channel.send(f"{data}초 남았습니다.\n```{users}```") 
+```
+
+하나의 파일뿐만이 아니라 여러개의 명령어에서 쿨타임을 다루고싶다면 `cooldown.CooldownSeveralClient()`로 처리할 수 있습니다.
+
+```py
+import cooldown
+from discord.ext import commands
+
+client = commands.Bot(command_prefix = '!' )
+cooldown = cooldown.CooldownSeveralClient()
+
+@client.command(name="delay")
+async def delay(ctx):
+
+    data = cooldown.Cooldown(ctx.command, 5, ctx.author.id)
+    if data == True:
+        cooldown.CooldownUpdate(ctx.command, ctx.author.id)
+        await ctx.send(5)
+    else:
+        await ctx.send(f"{data}초 만큼 남았습니다.")
+
+@client.command(name="delay2")
+async def delay2(ctx):
+
+    data = cooldown.Cooldown(ctx.command, 10, ctx.author.id)
+    if data == True:
+        cooldown.CooldownUpdate(ctx.command, ctx.author.id)
+        await ctx.send(5)
+    else:
+        await ctx.send(f"{data}초 만큼 남았습니다.")
+
+client.run('token')
 ```
