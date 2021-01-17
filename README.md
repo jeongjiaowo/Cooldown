@@ -17,8 +17,7 @@ async def on_message(message):
             cooldown.CooldownUpdate(message.author.id) # 쿨타임을 새로 갱신해줍니다. 
             await message.channel.send(5)
         else:
-            users = cooldown.CooldownSelect(5, 1) # 쿨타임 5초가 지나지 않은 플레이어 1명을 리스트 형식으로 불러옵니다.
-            await message.channel.send(f"{data}초 남았습니다.\n```{users}```") 
+            await message.channel.send(f"{data}초 남았습니다.") 
 ```
 
 하나의 파일뿐만이 아니라 여러개의 명령어에서 쿨타임을 다루고싶다면 `cooldown.CooldownSeveralClient()`로 처리할 수 있습니다.
