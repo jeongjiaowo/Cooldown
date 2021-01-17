@@ -1,1 +1,2 @@
-from cooldown.Cooldown import CooldownModule
+from cooldown.Cooldown import CooldownClient
+from cooldown.CooldownSeveral import CooldownSeveralClient

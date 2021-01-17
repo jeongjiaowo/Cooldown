@@ -1,48 +1,29 @@
 import time
 
-class CooldownModule():
+class CooldownClient():
     
     def __init__(self):
-        self.Cooldowns = {}
+        self.__users__ = {}
 
-    def Cooldown(cooltime : int, user : int):
+    def Cooldown(self, cooltime : int, user : int):
 
-        if cooltime < 0:
-            return ValueError("Less than -1 second is not allowed")
+        try: 
+            if cooltime < 0:
+                raise ValueError("Less than -1 second is not allowed")
+        except TypeError:
+            raise TypeError("Type 'str' is not allowed.")
 
-        for Player in self.Cooldowns:
-            if int(Player) == int(user):
+        if int(user) in self.__users__:
 
-                cooltimes = int(time.time()) - int(self.Cooldowns[str(user)])
-                if cooltimes >= cooltime:
-                    return True 
-                else:
-                    return cooltime - cooltimes
+            cooltimes = int(time.time()) - int(self.__users__[user])
+            if cooltimes >= cooltime:
+                return True 
+            else:
+                return cooltime - cooltimes
+        
+        else:
+            return True 
 
-        return True 
+    def CooldownUpdate(self, user : int) -> True:
 
-    def CooldownUpdate(user : int) -> True:
-
-        self.Cooldowns[str(user)] = int(time.time()) 
-
-    def CooldownSelect(cooltime : int, number : int):
-
-        if cooltime < 0:
-            return ValueError("Unable to navigate less than -1 second")
-        elif number <= 0:
-            return ValueError("Less than 0 is not allowed")
-
-        exam_number = 0
-        users = []
-        for User in self.Cooldowns:
-
-            exam_number += 1
-
-            cooltimes = int(time.time()) - int(self.Cooldowns[str(User)])
-            if cooltimes <= cooltime:
-                if int(exam_number) <= int(number):
-                    users.append(User)
-                else:
-                    pass 
-
-        return users
+        self.__users__[user] = int(time.time()) 
