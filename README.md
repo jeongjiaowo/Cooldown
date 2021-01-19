@@ -21,6 +21,7 @@ async def on_message(message):
             await message.channel.send(5)
         else:
             await message.channel.send(f"{data}초 남았습니다.") 
+            
 client.run('token')
 ```
 
