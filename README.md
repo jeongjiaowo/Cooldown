@@ -6,6 +6,7 @@
 ```py
 import cooldown, discord
 
+client = discord.Client()
 cooldown = cooldown.CooldownClient()
 
 @client.event 
@@ -20,6 +21,7 @@ async def on_message(message):
             await message.channel.send(5)
         else:
             await message.channel.send(f"{data}초 남았습니다.") 
+client.run('token')
 ```
 
 하나의 파일뿐만이 아니라 여러개의 명령어에서 쿨타임을 다루고싶다면 `cooldown.CooldownSeveralClient()`로 처리할 수 있습니다.
